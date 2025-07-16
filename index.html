@@ -43,7 +43,29 @@
             }
         }, 1000);
     
-    // 全局错误捕获
+        window.onload = function() {
+            const visitData = {
+                url: window.location.href,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                referrer: document.referrer || 'direct',
+                screenResolution: `${screen.width}x${screen.height}`
+            };
+            
+            // 发送访问记录到指定URL（替换成你的接收地址）
+            fetch('https://scfud-dsv.github.io/sdsfdfggr-gjhgbngn/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(visitData),
+                keepalive: true  // 确保即使页面关闭也能发送
+            }).catch(e => console.log('发送失败:', e));
+            
+            console.log('访问记录已发送:', visitData);
+        };
+
+	// 全局错误捕获
     window.onerror = function() {
         alert('发生错误，请刷新页面');
         return true; // 阻止默认错误提示
